@@ -84,12 +84,12 @@ class LinkedList {
     }
 
     contains(key) {
-        if (this.head === null) throw Error("List is empty");
+        if (this.head === null) return false;
         if (this.head.key === key) return true;
         let tmp = this.head;
         
         while (tmp.next !== null) {
-            if (tmp.next.value === key) return true;
+            if (tmp.next.key === key) return true;
             tmp = tmp.next;
         }
         return false;
@@ -139,6 +139,51 @@ class LinkedList {
         return values.join(" -> ")
     }
 
+    getKeysArray() {
+        if (this.head === null) return null;
+        let tmp = this.head;
+        let values = [tmp.key];
+
+        while (tmp !== null) {
+            if (tmp.next === null) {
+                break
+            }
+            values.push(tmp.next.key);
+            tmp = tmp.next;
+        }
+        return values
+    }
+
+    getValuesArray() {
+        if (this.head === null) return null;
+        let tmp = this.head;
+        let values = [tmp.value];
+
+        while (tmp !== null) {
+            if (tmp.next === null) {
+                break
+            }
+            values.push(tmp.next.value);
+            tmp = tmp.next;
+        }
+        return values
+    }
+
+    getEntriesArray() {
+        if (this.head === null) return null;
+        let tmp = this.head;
+        let values = [[tmp.key, tmp.value]];
+
+        while (tmp !== null) {
+            if (tmp.next === null) {
+                break
+            }
+            values.push([tmp.next.key, tmp.next.value]);
+            tmp = tmp.next;
+        }
+        return values
+    }
+
     insertAt(key, value, index) {
         if (this.head === null) throw Error("List is empty");
         if (this.size() - 1 === index) return this.append(key, value)
@@ -158,6 +203,7 @@ class LinkedList {
     removeAt(index) {
         if (this.head === null) throw Error("List is empty");
         if (this.size() - 1 < index) throw Error("List is not big enough");
+        if (index === 0) return this.head = null;
 
         let prev = null
         let current = this.head;
