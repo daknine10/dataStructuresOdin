@@ -153,16 +153,4 @@ class Node {
 
 }
 
-const list = new LinkedList();
-
-list.append("dog");
-list.append("cat");
-list.append("parrot");
-list.append("hamster");
-list.append("snake");
-list.append("turtle");
-list.prepend("pig");
-list.removeAt(8)
-
-console.log(list.size())
-console.log(list.toString())
+export default LinkedList;
