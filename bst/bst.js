@@ -26,28 +26,42 @@ class Tree {
         return root;
     }
 
-    insert(value) {
-        let current = this.root
+    insert(value, root = this.root) {
+        if (root === null) return new Node(value);
 
-        while (current.data !== null) {
-            if (current.data === value) throw Error("Value already exists in the tree")
-            if (current.data < value) {
-                if (current.right === null) return current.right = new Node(value);
-                current = current.right;
-            }
-            if (current.data > value) {
-                if (current.left === null) return current.left = new Node(value);
-                current = current.left;
-            }
+        if (root.data === value) throw Error("Value already exists in the tree")
+
+        if (value < root.data) root.left = insert(value, root.left)
+        else if (value > root.data) root.right = insert(value, root.right)
+
+        return root;
+    }
+
+    deleteItem(value, root = this.root) {
+    if (root === null) {
+        return root;
+    }
+
+    if (root.data > value) {
+        root.left = deleteItem(value, root.left);
+    } else if (root.key < x) {
+        root.right = deleteItem(value, root.right;
+    } else {
+
+        if (root.left === null) 
+            return root.right;
+
+        if (root.right === null) 
+            return root.left;
+
+        let closest = root.right;
+        while (closest.left !== null) {
+            closest = closest.left
         }
-        return;
+        root.value = closest.value;
+        root.right = deleteItem(root.right, closest.value)
     }
-
-    deleteItem(value) {
-        // if we remove a Node with two children, you have to find the closest value(1 step right, then until the very left)
-        // if only one child, replace the value with its child's (the whole Node)
-
-    }
+    return root;
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
