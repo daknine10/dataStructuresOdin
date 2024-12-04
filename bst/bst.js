@@ -44,7 +44,7 @@ class Tree {
 
     if (root.data > value) {
         root.left = deleteItem(value, root.left);
-    } else if (root.key < x) {
+    } else if (root.data < value) {
         root.right = deleteItem(value, root.right;
     } else {
 
