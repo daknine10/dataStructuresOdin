@@ -131,11 +131,11 @@ class Tree {
         callback(root);
     }
 
-    height(node, root = this.root) {
+    height(root = this.root, node = root) {
         if (root === null) return 0;
         
-        const leftHeight = this.height(node, root.left);
-        const rightHeight = this.height(node, root.right);
+        const leftHeight = this.height(root.left, node);
+        const rightHeight = this.height(root.right, node);
     
         return Math.max(leftHeight, rightHeight) + 1;
     }
@@ -155,10 +155,10 @@ class Tree {
     isBalanced(root = this.root) {
         if (root === null) return true;
         
-        const leftHeight = this.height(root.left, root.left);
-        const rightHeight = this.height(root.right, root.right);
+        const leftHeight = this.height(root.left);
+        const rightHeight = this.height(root.right);
 
-        return Math.abs(leftHeight - rightHeight) <= 1  && this.isBalanced(root.left, root.left) && this.isBalanced(root.right)
+        return Math.abs(leftHeight - rightHeight) <= 1  && this.isBalanced(root.left) && this.isBalanced(root.right)
     }
 
     rebalance() {
