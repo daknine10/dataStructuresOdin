@@ -29,7 +29,7 @@ class Tree {
     insert(value, root = this.root) {
         if (root === null) return new Node(value);
 
-        if (root.data === value) throw Error("Value already exists in the tree")
+        if (root.data === value) throw Error(`Value ${value} already exists in the tree`)
 
         if (value < root.data) root.left = this.insert(value, root.left)
         else if (value > root.data) root.right = this.insert(value, root.right)
@@ -155,10 +155,17 @@ class Tree {
     isBalanced(root = this.root) {
         if (root === null) return true;
         
-        const leftHeight = this.height(root.left);
-        const rightHeight = this.height(root.right);
+        const leftHeight = this.height(root.left, root.left);
+        const rightHeight = this.height(root.right, root.right);
 
-        return Math.abs(leftHeight - rightHeight) <= 1  && this.isBalanced(root.left) && this.isBalanced(root.right);
+        return Math.abs(leftHeight - rightHeight) <= 1  && this.isBalanced(root.left, root.left) && this.isBalanced(root.right)
+    }
+
+    rebalance() {
+        let nodes = [];
+        this.inOrder((node) => nodes.push(node.data))
+
+        this.root = this.buildTree(nodes);
     }
 }
 
@@ -176,6 +183,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const testTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+
+
 testTree.insert(25)
 testTree.deleteItem(67)
 testTree.deleteItem(324)
@@ -183,6 +192,19 @@ testTree.deleteItem(5)
 testTree.deleteItem(7)
 testTree.find(23)
 
+testTree.insert(65)
+testTree.insert(26)
+testTree.insert(27)
+testTree.insert(28)
+testTree.insert(29)
+testTree.insert(30)
+testTree.insert(31)
+testTree.insert(39)
+testTree.insert(33)
+
+console.log(testTree.isBalanced())
+testTree.rebalance()
+console.log(testTree.isBalanced())
 
 
 prettyPrint(testTree.root);
